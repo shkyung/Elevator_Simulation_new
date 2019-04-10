@@ -24,7 +24,6 @@ import FloorBtnView, {floorBtnViewEl} from "./js/views/floorBtnView.js";
         //controller에서 elevator model 생성
         Controller.setElevatorModels(elevatorNum, floorNum);
 
-        // ElevatorView가 많아지고 로드할게 많아진다면 비동기 로드로 하고 아래코드는 _.defer()를 사용해서 처리
         FloorBtnView.initialize(floorNum);
     }
 
