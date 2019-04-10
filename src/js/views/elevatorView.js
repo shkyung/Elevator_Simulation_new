@@ -1,6 +1,5 @@
 export default class elevatorView {
     constructor(index, floorNum) {
-        console.error("elevatorView constructor !! this : ", this);
         this.className = "elevator" + index;
         this.el = document.createElement("div");
         this.el.classList.add(this.className);
@@ -16,7 +15,7 @@ export default class elevatorView {
             floorEl.setAttribute("value", i);
             this.el.appendChild(floorEl);
 
-            if (i ===1) {
+            if (i === 1) {
                 floorEl.classList.add("current");
             }
         }
@@ -27,8 +26,8 @@ export default class elevatorView {
         this.el.getElementsByClassName("current")[0].classList.remove("moving");
         this.el.getElementsByClassName("current")[0].classList.remove("current");
 
-        this.el.querySelector("[value='"+ floor + "']").classList.add("current");
-        this.el.querySelector("[value='"+ floor + "']").classList.add("moving");
+        this.el.querySelector("[value='" + floor + "']").classList.add("current");
+        this.el.querySelector("[value='" + floor + "']").classList.add("moving");
     }
 
     initUi() {

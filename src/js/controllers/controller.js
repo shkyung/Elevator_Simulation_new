@@ -52,7 +52,7 @@ class Controller {
             } else {
                 console.error("현재 엘리베이터가 모두 이동중이니 잠시만 기다려주세요..");
             }
-        }
+        };
 
         return Controller.instance;
     }

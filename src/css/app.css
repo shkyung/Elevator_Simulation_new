@@ -12,6 +12,7 @@
 #elevatorsView > div {
     margin-left: 10px;
     float: left;
+    border: 1px solid #ffcccc;
 }
 .floor {
     width: 50px;
@@ -34,7 +35,7 @@
     text-align: center;
 }
 .current {
-    border: 2px solid #a1a1a1;
+    border: 3px solid #a1a1a1;
 }
 .moving {
     background: #f5a1c7;

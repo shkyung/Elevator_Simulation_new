@@ -5,7 +5,6 @@ let _stateMap = Constants.stateMap;
 
 export default class elevator {
     constructor(index, floorNum) {
-        console.error("elevator constructor !! this : ", this);
         this.index = index;
         this.state = _stateMap.stop;
         this.location = 1;
