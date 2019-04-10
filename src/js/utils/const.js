@@ -1,10 +1,7 @@
-define(function (require) {
-  "use strict";
-
-  return {
-    stateMap : {
-      "stop": 1,
-      "moving": 2
+const Constants = {
+    stateMap: {
+        "stop": 1,
+        "moving": 2
     }
-  }
-});
+};
+export default Constants

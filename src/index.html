@@ -4,19 +4,19 @@
   <meta charset="UTF-8">
   <title>Title</title>
   <link rel="stylesheet" type="text/css" href="./css/app.css">
-  <script data-main="./main" src="./libs/require-2.3.6.js"></script>
 </head>
 <body>
-<div class="intro">
-  층수:<br>
-  <input type="number" value="5" class="floorInput" min="2" max="5"><br>
-  엘레베이터 갯수:<br>
-  <input type="number" value="4" class="elevatorInput" min="2" max="4"><br>
-  <input type="button" class="simulation" value="start simulation">
+<div id="intro" style="display:block">
+  층수: &nbsp; <input type="number" value="5" id="floorInput" min="2" max="5"> <br><br>
+
+  엘레베이터 갯수: &nbsp; <input type="number" value="4" id="elevatorInput" min="2" max="4"><br><br>
+
+  <input type="button" id="simulation" value="start simulation">
 </div>
-<div class ="app" style="display:none">
-  <div class="floorBtnView"></div>
-  <div class="elevatorsView"></div>
+<div id ="app" style="display:none">
+  <div id="floorBtnView"></div>
+  <div id="elevatorsView"></div>
 </div>
 </body>
+<script src="./index.js" type="module"></script>
 </html>

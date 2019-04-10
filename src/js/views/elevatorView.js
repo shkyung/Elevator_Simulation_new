@@ -1,36 +1,37 @@
-define(function (require) {
-  "use strict";
-  var $= require("jquery");
+export default class elevatorView {
+    constructor(index, floorNum) {
+        console.error("elevatorView constructor !! this : ", this);
+        this.className = "elevator" + index;
+        this.el = document.createElement("div");
+        this.el.classList.add(this.className);
 
-  function elevatorView (index, floorNum) {
-    this.className = "elevator" + index;
-    this.$el = $("<div></div>").addClass(this.className);
-
-    this.init(floorNum);
-  }
-
-  elevatorView.prototype.init = function(floorNum) {
-    for (var i = floorNum; i > 0; i--) {
-      var floor = $("<div></div>").addClass("floor").attr("value",i);
-      this.$el.append(floor);
-
-      if (i ===1) {
-        floor.addClass("current");
-      }
+        this.initialize(floorNum);
     }
 
-    $(".elevatorsView").append(this.$el);
-  };
+    initialize(floorNum) {
+        for (let i = floorNum; i > 0; i--) {
+            let floorEl = document.createElement("div");
 
-  // mac os - safari, windows - IE, Edge, FF, Chrome 정상동작.
-  elevatorView.prototype.move = function(floor) {
-    this.$el.find(".current").removeClass("current moving");
-    this.$el.find("[value='"+ floor + "']").addClass("current moving");
-  };
+            floorEl.classList.add("floor");
+            floorEl.setAttribute("value", i);
+            this.el.appendChild(floorEl);
 
-  elevatorView.prototype.initUi = function() {
-    this.$el.find(".current").removeClass("moving");
-  };
+            if (i ===1) {
+                floorEl.classList.add("current");
+            }
+        }
+        document.getElementById("elevatorsView").appendChild(this.el);
+    }
 
-  return elevatorView;
-});
+    move(floor) {
+        this.el.getElementsByClassName("current")[0].classList.remove("moving");
+        this.el.getElementsByClassName("current")[0].classList.remove("current");
+
+        this.el.querySelector("[value='"+ floor + "']").classList.add("current");
+        this.el.querySelector("[value='"+ floor + "']").classList.add("moving");
+    }
+
+    initUi() {
+        this.el.getElementsByClassName("current")[0].classList.remove("moving");
+    }
+}

@@ -1,96 +1,92 @@
-define(function (require) {
-  "use strict";
+import Constants from "../utils/const.js"
+import ElevatorView from "../views/elevatorView.js"
 
-  var ElevatorView = require("../views/elevatorView"),
-    Const = require("../utils/const");
+let _stateMap = Constants.stateMap;
 
-  var _stateMap = Const.stateMap;
-
-  function elevator(index, floorNum) {
-    this.index = index;
-    this.state = _stateMap.stop;
-    this.location = 1;
-    this.stayingTime = 0;
-    this.view = new ElevatorView(this.index, floorNum);
-  }
-
-  elevator.prototype.getEstimateTime = function (dest) {
-    var time = Math.abs(this.location - dest);
-
-    time += this.stayingTime;
-
-    return time;
-  };
-
-  elevator.prototype.changeState = function (state, justArrived) {
-    this.state = state;
-
-    if (justArrived) {
-      this.stayingTime = 3;
-    }
-  };
-
-  elevator.prototype.startMove = function (dest) {
-    var that = this;
-
-    function _move() {
-      that.changeState(_stateMap.moving);
-      that[ that.location > dest ? "moveDown" : "moveUp" ](dest);
+export default class elevator {
+    constructor(index, floorNum) {
+        console.error("elevator constructor !! this : ", this);
+        this.index = index;
+        this.state = _stateMap.stop;
+        this.location = 1;
+        this.stayingTime = 0;
+        this.view = new ElevatorView(this.index, floorNum);
     }
 
-    if (this.stayingTime !== 0) {
-      setTimeout(_move, this.stayingTime * 1000);
-    } else {
-      _move();
+    getEstimateTime(dest) {
+        let time = Math.abs(this.location - dest);
+
+        time += this.stayingTime;
+
+        return time;
     }
-  };
 
-  elevator.prototype.moveUp = function (dest) {
-    var that = this,
-      interval;
+    changeState(state, justArrived) {
+        this.state = state;
 
-    interval = setInterval(function () {
-      that.view.move(++that.location);
+        if (justArrived) {
+            this.stayingTime = 3;
+        }
+    }
 
-      if (that.location === dest) {
-        clearInterval(interval);
-        that.arrive(dest);
-      }
-    }, 1000);
+    startMove(dest) {
+        let that = this;
 
-  };
+        function _move() {
+            that.changeState(_stateMap.moving);
+            that[that.location > dest ? "moveDown" : "moveUp"](dest);
+        }
 
-  elevator.prototype.moveDown = function (dest) {
-    var that = this,
-      interval;
+        if (this.stayingTime !== 0) {
+            setTimeout(_move, this.stayingTime * 1000);
+        } else {
+            _move();
+        }
+    }
 
-    interval = setInterval(function () {
-      that.view.move(--that.location);
+    moveUp(dest) {
+        let that = this,
+            interval;
 
-      if (that.location === dest) {
-        clearInterval(interval);
-        that.arrive(dest);
-      }
-    }, 1000);
-  };
+        interval = setInterval(function () {
+            that.view.move(++that.location);
 
-  elevator.prototype.arrive = function (dest) {
-    var that = this,
-      interval;
+            if (that.location === dest) {
+                clearInterval(interval);
+                that.arrive(dest);
+            }
+        }, 1000);
+    }
 
-    this.changeState(_stateMap.stop, true);
-    activeFloorBtn(dest);
+    moveDown(dest) {
+        let that = this,
+            interval;
 
-    interval = setInterval(function () {
-      --that.stayingTime;
-      if (that.stayingTime === 0) {
-        clearInterval(interval);
-      } else if(that.stayingTime === 2) {
-        // 도착하고 1초가 지나면 엘리베이터의 이동중 표시를 없앤다.
-        that.view.initUi();
-      }
-    }, 1000);
-  };
+        interval = setInterval(function () {
+            that.view.move(--that.location);
 
-  return elevator;
-});
+            if (that.location === dest) {
+                clearInterval(interval);
+                that.arrive(dest);
+            }
+        }, 1000);
+    }
+
+    arrive(dest) {
+        let that = this,
+            interval;
+
+        this.changeState(_stateMap.stop, true);
+        activeFloorBtn(dest);
+
+        interval = setInterval(function () {
+            --that.stayingTime;
+            if (that.stayingTime === 0) {
+                clearInterval(interval);
+            } else if (that.stayingTime === 2) {
+                // 도착하고 1초가 지나면 엘리베이터의 이동중 표시를 없앤다.
+                that.view.initUi();
+            }
+        }, 1000);
+    }
+}
