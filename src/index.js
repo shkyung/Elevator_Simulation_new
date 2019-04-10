@@ -1,3 +1,4 @@
+import polyfill from "./js/utils/polyfill.js";
 import Controller from "./js/controllers/controller.js";
 import FloorBtnView, {floorBtnViewEl} from "./js/views/floorBtnView.js";
 
@@ -42,8 +43,8 @@ import FloorBtnView, {floorBtnViewEl} from "./js/views/floorBtnView.js";
          * @description 해당 층의 버튼을 활성화 시킨다.
          * @param {number} floor
          */
-        window.activeFloorBtn = function (floor) {
-            floorBtnViewEl.querySelector("[value='" + floor + "']").classList.remove("disable");
+        window.updateFloorBtn = function (floor, tobeActive) {
+            floorBtnViewEl.querySelector("[value='" + floor + "']").classList[tobeActive? "remove" : "add"]("disable");
         };
     }
 })();
