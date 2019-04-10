@@ -20,72 +20,64 @@ export default class elevator {
         return time;
     }
 
-    changeState(state, justArrived) {
+    changeState(state) {
         this.state = state;
-
-        if (justArrived) {
-            this.stayingTime = 3;
-        }
     }
 
     startMove(dest) {
+        console.error(this.index + "호 엘리베이터가 " + dest + " 층으로 움직임");
+
+        let that = this,
+            timer;
+        //console.error("*********that context: ", that);
+
+        that.changeState(_stateMap.moving);
+
+        function _moveStart() {
+            clearTimeout(timer);
+
+            that.move(dest);
+        }
+
+        // waiting시간이 있는 경우에도 stop상태이므로 그 시간만큼 기다렸다가 이동한다.
+        timer = setTimeout(_moveStart, this.stayingTime * 1000);
+    }
+
+    move(dest) {
+        let that = this,
+            interval = setInterval(function () {
+                that.view.move(that.location < dest ? ++that.location : --that.location);
+
+                if (that.location === dest) {
+                    console.error("도착! clearInterval -> that.wating 호출");
+                    clearInterval(interval);
+
+                    that.changeState(_stateMap.stop);
+                    that.waiting(dest);
+                }
+            }, 1000);
+    }
+
+    waiting(dest) {
         let that = this;
 
-        function _move() {
-            that.changeState(_stateMap.moving);
-            that[that.location > dest ? "moveDown" : "moveUp"](dest);
-        }
+        that.stayingTime = 3;
+        that.view.initUi();
+        updateFloorBtn(dest, true);
 
-        if (this.stayingTime !== 0) {
-            setTimeout(_move, this.stayingTime * 1000);
-        } else {
-            _move();
-        }
-    }
+        let event = new CustomEvent("done", { "detail": that.index });
 
-    moveUp(dest) {
-        let that = this,
-            interval;
+        document.body.dispatchEvent(event);
 
-        interval = setInterval(function () {
-            that.view.move(++that.location);
+        let waitingInterval = setInterval(function () {
+            // console.error(" ** that : ", that);
+            // console.error("waiting that.stayingTime : ", that.stayingTime);
+                --that.stayingTime;
 
-            if (that.location === dest) {
-                clearInterval(interval);
-                that.arrive(dest);
-            }
-        }, 1000);
-    }
-
-    moveDown(dest) {
-        let that = this,
-            interval;
-
-        interval = setInterval(function () {
-            that.view.move(--that.location);
-
-            if (that.location === dest) {
-                clearInterval(interval);
-                that.arrive(dest);
-            }
-        }, 1000);
-    }
-
-    arrive(dest) {
-        let that = this,
-            interval;
-
-        this.changeState(_stateMap.stop, true);
-        activeFloorBtn(dest);
-
-        interval = setInterval(function () {
-            --that.stayingTime;
-            if (that.stayingTime === 0) {
-                clearInterval(interval);
-            } else if (that.stayingTime === 2) {
-                // 도착하고 1초가 지나면 엘리베이터의 이동중 표시를 없앤다.
-                that.view.initUi();
-            }
-        }, 1000);
+                if (that.stayingTime <= 0) {
+                    //console.error("that.stayingTime <== 0 clearInterval");
+                    clearInterval(waitingInterval);
+                }
+            }, 1000);
     }
 }

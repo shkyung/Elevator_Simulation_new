@@ -7,10 +7,11 @@ let disableFloorBtn = function (floor) {
 };
 
 let onClickFloorBtn = function (e) {
-    let target = e.currentTarget;
+    let target = e.currentTarget,
+    destFloor = +target.getAttribute("value");
 
     if (!target.classList.contains("disable")) {
-        Controller.request(+target.getAttribute("value"), disableFloorBtn);
+        Controller.request(destFloor, disableFloorBtn);
     }
 };
 
