@@ -28,8 +28,8 @@ export default class elevator {
         console.error(this.index + "호 엘리베이터가 " + dest + " 층으로 움직임");
 
         let that = this,
-            timer;
-        //console.error("*********that context: ", that);
+            // waiting시간이 있는 경우에도 stop상태이므로 그 시간만큼 기다렸다가 이동한다.
+            timer = setTimeout(_moveStart, this.stayingTime * 1000);
 
         that.changeState(_stateMap.moving);
 
@@ -38,9 +38,6 @@ export default class elevator {
 
             that.move(dest);
         }
-
-        // waiting시간이 있는 경우에도 stop상태이므로 그 시간만큼 기다렸다가 이동한다.
-        timer = setTimeout(_moveStart, this.stayingTime * 1000);
     }
 
     move(dest) {
@@ -49,7 +46,6 @@ export default class elevator {
                 that.view.move(that.location < dest ? ++that.location : --that.location);
 
                 if (that.location === dest) {
-                    console.error("도착! clearInterval -> that.wating 호출");
                     clearInterval(interval);
 
                     that.changeState(_stateMap.stop);
@@ -59,25 +55,19 @@ export default class elevator {
     }
 
     waiting(dest) {
-        let that = this;
+        let that = this,
+            event = new CustomEvent("done", {"detail": that.index}),
+            waitingInterval = setInterval(function () {
+                --that.stayingTime;
+
+                if (that.stayingTime <= 0) {
+                    clearInterval(waitingInterval);
+                }
+            }, 1000);
 
         that.stayingTime = 3;
         that.view.initUi();
         updateFloorBtn(dest, true);
-
-        let event = new CustomEvent("done", { "detail": that.index });
-
         document.body.dispatchEvent(event);
-
-        let waitingInterval = setInterval(function () {
-            // console.error(" ** that : ", that);
-            // console.error("waiting that.stayingTime : ", that.stayingTime);
-                --that.stayingTime;
-
-                if (that.stayingTime <= 0) {
-                    //console.error("that.stayingTime <== 0 clearInterval");
-                    clearInterval(waitingInterval);
-                }
-            }, 1000);
     }
 }
