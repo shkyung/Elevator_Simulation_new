@@ -1,0 +1,33 @@
+{
+  "name": "elevator_simulation_new",
+  "version": "1.0.0",
+  "description": "Elevator_Simulation_2019",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "devserver": "webpack-dev-server --hot --inline"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shkyung/Elevator_Simulation_new.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shkyung/Elevator_Simulation_new/issues"
+  },
+  "homepage": "https://github.com/shkyung/Elevator_Simulation_new#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.5",
+    "babel-preset-env": "^1.7.0",
+    "css-loader": "^2.1.1",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.29.6",
+    "webpack-dev-server": "^3.3.1"
+  },
+  "dependencies": {
+    "@babel/core": "^7.4.3",
+    "babel-preset-es2015": "^6.24.1"
+  }
+}

@@ -1,7 +1,5 @@
 require.config({
   paths: {
-    jquery: "./ibs/jquery-3.3.1",
-    underscore: "./libs/underscore",
     'jasmine': ['./libs/jasmine/jasmine'],
     'jasmine-html': ['./libs/jasmine/jasmine-html'],
     'jasmine-boot': ['./libs/jasmine/boot']
