@@ -2,16 +2,12 @@ import Controller from "../controllers/controller.js";
 
 export let floorBtnViewEl = document.getElementById("floorBtnView");
 
-let disableFloorBtn = function (floor) {
-    floorBtnViewEl.querySelector("[value='" + floor + "']").classList.add("disable");
-};
-
 let onClickFloorBtn = function (e) {
     let target = e.currentTarget,
     destFloor = +target.getAttribute("value");
 
     if (!target.classList.contains("disable")) {
-        Controller.request(destFloor, disableFloorBtn);
+        Controller.request(destFloor);
     }
 };
 
