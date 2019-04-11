@@ -29,5 +29,8 @@
     "webpack": "^4.29.6",
     "webpack-dev-server": "^3.3.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "custom-event-polyfill": "^1.0.7",
+    "ie-array-find-polyfill": "^1.1.0"
+  }
 }
