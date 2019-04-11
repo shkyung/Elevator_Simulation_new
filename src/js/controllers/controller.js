@@ -73,6 +73,6 @@ class Controller {
 }
 
 const instance = new Controller();
-Object.freeze(instance);
+//Object.freeze(instance);
 
 export default instance;
