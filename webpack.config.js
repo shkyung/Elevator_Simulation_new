@@ -1,3 +1,5 @@
+const HtmlWebPackPlugin = require("html-webpack-plugin");
+
 module.exports = {
     entry: "./src/app.js",
     output: {
@@ -10,15 +12,25 @@ module.exports = {
                 use: ['style-loader', 'css-loader']
             },
             {
-                test: /\.js/,
+                test: /\.js$/,
                 exclude: /(node_modules)|(dist)/,
                 use: {
-                    loader: 'babel-loader',
-                    options: {
-                        //presets: ['env']
-                    }
+                    loader: 'babel-loader'
+                    // options: {
+                    //     "presets": ["babel-preset-env", "babel-preset-es2015"]
+                    // }
                 }
-            }
+            },
+            {
+                test: /\.html$/,
+                use: ['html-loader']
+            },
         ]
-    }
+    },
+    plugins: [
+        new HtmlWebPackPlugin({
+            template: "./src/index.html",
+            filename: "./index.html"
+        })
+    ]
 };
