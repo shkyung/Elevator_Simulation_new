@@ -1,6 +1,3 @@
-import polyfill from "../utils/polyfill.js";
-import style from "../../css/app.css";
-
 import Controller from "./controller.js";
 import FloorBtnView, {floorBtnViewEl} from "../views/floorBtnView.js";
 

@@ -1,4 +1,4 @@
-export default function polyfill() {
+export default function customEventPolyfill() {
 
     if (typeof window.CustomEvent === "function") return false;
 
@@ -13,4 +13,4 @@ export default function polyfill() {
 
     window.CustomEvent = CustomEvent;
 }
-polyfill();
+customEventPolyfill();
