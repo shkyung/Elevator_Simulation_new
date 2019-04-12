@@ -6,7 +6,8 @@
   "scripts": {
     "build": "webpack",
     "devserver": "webpack-dev-server --hot --inline",
-    "start": "webpack-dev-server --mode development --open"
+    "start": "webpack-dev-server --mode development --open",
+    "test": "./node_modules/.bin/karma start"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,10 @@
     "css-loader": "^2.1.1",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
+    "karma": "^4.0.1",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-jasmine": "^2.0.1",
+    "karma-webpack": "^3.0.5",
     "style-loader": "^0.23.1",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
