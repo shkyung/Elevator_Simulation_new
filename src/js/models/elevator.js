@@ -25,8 +25,6 @@ export default class elevator {
     }
 
     startMove(dest) {
-        console.error(this.index + "호 엘리베이터가 " + dest + " 층으로 움직임");
-
         let that = this,
             // waiting시간이 있는 경우에도 stop상태이므로 그 시간만큼 기다렸다가 이동한다.
             timer = setTimeout(_moveStart, this.stayingTime * 1000);
