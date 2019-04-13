@@ -5,17 +5,19 @@ import FloorBtnView from "../js/views/floorBtnView";
 describe("app 테스트", function () {
     beforeEach(()=> {
         let el = document.createElement("div");
-        el.setAttribute("id","elevatorsView");
+        el.setAttribute("id","simulation");
         document.body.append(el);
 
-        spyOn(Controller, "setElevatorModels");
-        spyOn(FloorBtnView, "initialize");
         App.init(4,3);
+
+        //spyOn(Controller.prototype, "setElevatorModels");
+        spyOn(FloorBtnView.prototype, "initialize");
+
         done();
     });
 
     it("spyOn 테스트", function () {
-        expect(Controller.setElevatorModels).toHaveBeenCalled();
-        expect(FloorBtnView.initialize).toHaveBeenCalled();
+        expect(Controller.prototype.setElevatorModels).toHaveBeenCalled();
+        expect(FloorBtnView.prototype.initialize).toHaveBeenCalled();
     });
 });
